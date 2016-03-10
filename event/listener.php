@@ -55,7 +55,7 @@ class listener implements EventSubscriberInterface
 	public function __construct(
 		\phpbb\auth\auth $auth,
 		\phpbb\config\config $config,
-		\phpbb\php\ini $php_ini,
+		\bantu\IniGetWrapper\IniGetWrapper $php_ini,
 		\phpbb\template\template $template,
 		\phpbb\user $user
 	) {
@@ -108,8 +108,8 @@ class listener implements EventSubscriberInterface
 	private function get_upload_max_filesize()
 	{
 		$max = min(
-			$this->php_ini->get_bytes('upload_max_filesize'),
-			$this->php_ini->get_bytes('post_max_size')
+			$this->php_ini->getBytes('upload_max_filesize'),
+			$this->php_ini->getBytes('post_max_size')
 		);
 
 		return $max;
