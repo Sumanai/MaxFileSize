@@ -57,13 +57,13 @@ class listener implements EventSubscriberInterface
 	public function __construct(
 		\phpbb\auth\auth $auth,
 		\phpbb\config\config $config,
-		\phpbb\plupload\plupload $plupload,
+		\phpbb\php\ini $php_ini,
 		\phpbb\template\template $template,
 		\phpbb\user $user
 	) {
 		$this->auth = $auth;
 		$this->config = $config;
-		$this->plupload = $plupload;
+		$this->php_ini = $php_ini;
 		$this->template = $template;
 		$this->user = $user;
 	}
@@ -85,7 +85,7 @@ class listener implements EventSubscriberInterface
 		$this->user->add_lang_ext('Sumanai/MaxFileSize', 'MaxFileSize');
 		$this->user->add_lang('common');
 
-		$php_max_size = $this->plupload->get_upload_max_filesize();
+		$php_max_size = $this->get_upload_max_filesize();
 		if ($this->auth->acl_get('a_'))
 		{
 			$max_filesize = $php_max_size;
@@ -100,5 +100,20 @@ class listener implements EventSubscriberInterface
 		$this->template->assign_vars(array(
 			'MAX_FILE_SIZE' => $this->user->lang('MAX_FILE_SIZE', $max_filesize['value'], $max_filesize['unit']),
 		));
+	}
+
+	/**
+	* Get allowed file size uploaded per PHP ini settings
+	*
+	* @return int
+	*/
+	private function get_upload_max_filesize()
+	{
+		$max = min(
+			$this->php_ini->get_bytes('upload_max_filesize'),
+			$this->php_ini->get_bytes('post_max_size')
+		);
+
+		return $max;
 	}
 }
