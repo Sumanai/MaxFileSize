@@ -3,7 +3,7 @@
     "type": "phpbb-extension",
     "description": "Display maximum file size in posting and quick reply",
     "homepage": "http://sumanai.ru/",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "time": "2016-03-10",
     "license": "GPL-2.0",
     "authors": [

@@ -90,7 +90,7 @@ class listener implements EventSubscriberInterface
 		}
 		else
 		{
-			$max_filesize = min($config['max_filesize'], $php_max_size);
+			$max_filesize = min($this->config['max_filesize'], $php_max_size);
 		}
 
 		$max_filesize = get_formatted_filesize($max_filesize, false);
