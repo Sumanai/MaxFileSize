@@ -30,11 +30,9 @@ class listener implements EventSubscriberInterface
 	private $config;
 
 	/**
-	* The plupload object
-	*
-	* @var \phpbb\plupload\plupload
+	* @var \phpbb\php\ini
 	*/
-	private $plupload;
+	private $php_ini;
 
 	/**
 	* Template object
