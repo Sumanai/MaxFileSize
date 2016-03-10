@@ -1,0 +1,11 @@
+services:
+    Sumanai.MaxFileSize.listener:
+        class: Sumanai\MaxFileSize\event\listener
+        arguments:
+            - @auth
+            - @config
+            - @plupload
+            - @template
+            - @user
+        tags:
+            - { name: event.listener }

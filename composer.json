@@ -1,0 +1,33 @@
+{
+    "name": "Sumanai/MaxFileSize",
+    "type": "phpbb-extension",
+    "description": "Display maximum file size in posting and quick reply",
+    "homepage": "http://sumanai.ru/",
+    "version": "1.0.0",
+    "time": "2016-03-10",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "southklad",
+            "homepage": "http://southklad.ru/",
+            "role": "Idea"
+        },
+        {
+            "name": "Sumanai",
+            "homepage": "http://sumanai.ru/",
+            "email": "sumanai@ya.ru",
+            "role": "Developer"
+        }],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+      "phpbb/epv": "dev-master"
+    },
+    "extra": {
+        "display-name": "MaxFileSize",
+        "soft-require": {
+            "phpbb/phpbb": "3.1.*@dev"
+        }
+    }
+}
