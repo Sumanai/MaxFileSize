@@ -49,6 +49,13 @@ class listener implements EventSubscriberInterface
 	private $user;
 
 	/**
+	* In PM status
+	*
+	* @var bool
+	*/
+	private $in_pm = false;
+
+	/**
 	* Constructor
 	* Always your Captain Obvious
 	*/
@@ -74,7 +81,8 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup'   => 'main',
+			'core.page_header'                  => 'main',
+			'core.ucp_pm_compose_modify_data'   => 'in_pm',
 		);
 	}
 
@@ -90,14 +98,21 @@ class listener implements EventSubscriberInterface
 		}
 		else
 		{
-			$max_filesize = min($this->config['max_filesize'], $php_max_size);
+			$max_config_size = $this->in_pm ? $this->config['max_filesize_pm'] : $this->config['max_filesize'];
+			$max_filesize = min($max_config_size, $php_max_size);
 		}
 
-		$max_filesize = get_formatted_filesize($max_filesize, false);
+		$max_filesize_formatted = get_formatted_filesize($max_filesize, false);
 
 		$this->template->assign_vars(array(
-			'MAX_FILE_SIZE' => $this->user->lang('MAX_FILE_SIZE', $max_filesize['value'], $max_filesize['unit']),
+			'FILESIZE'      => $max_filesize,
+			'MAX_FILE_SIZE' => $this->user->lang('MAX_FILE_SIZE', $max_filesize_formatted['value'], $max_filesize_formatted['unit']),
 		));
+	}
+
+	public function in_pm($event)
+	{
+		$this->in_pm = true;
 	}
 
 	/**
